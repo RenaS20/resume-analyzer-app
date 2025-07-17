@@ -1,6 +1,7 @@
 import streamlit as st
 import os
 from resume_utils import analyze_resume
+api_key = os.getenv("OPENROUTER_API_KEY")
 
 st.set_page_config(page_title="AI Resume Analyzer", page_icon="📄")
 
@@ -18,3 +19,5 @@ if st.button("Analyze Resume"):
             st.markdown(feedback)
     else:
         st.warning("Please paste your resume and specify a target role.")
+
+

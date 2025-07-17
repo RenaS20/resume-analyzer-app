@@ -1,11 +1,11 @@
-import os
+import streamlit as st
 import requests
-from dotenv import load_dotenv
 
-# Load environment variables from .env file (if you're using it)
-load_dotenv()
+# ✅ DO NOT need dotenv on Streamlit Cloud
+# from dotenv import load_dotenv
+# load_dotenv()
 
-OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
+OPENROUTER_API_KEY = st.secrets["OPENROUTER_API_KEY"]  # ✅ Streamlit secret
 
 def analyze_resume(resume_text, target_role):
     prompt = f"""
@@ -30,18 +30,18 @@ Resume:
 
     headers = {
         "Authorization": f"Bearer {OPENROUTER_API_KEY}",
-        "HTTP-Referer": "https://resume-analyzer.streamlit.app",  # any name is fine
+        "HTTP-Referer": "https://resume-analyzer.streamlit.app",
         "X-Title": "Resume Analyzer",
         "Content-Type": "application/json"
     }
 
     data = {
-        "model": "mistralai/mixtral-8x7b-instruct",  # free model on OpenRouter
+        "model": "mistralai/mixtral-8x7b-instruct",
         "messages": [{"role": "user", "content": prompt}]
     }
 
     response = requests.post("https://openrouter.ai/api/v1/chat/completions", headers=headers, json=data)
-    
+
     try:
         result = response.json()
         print("✅ Response from OpenRouter:")
