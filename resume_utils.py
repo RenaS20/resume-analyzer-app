@@ -30,9 +30,10 @@ Resume:
 
     headers = {
         "Authorization": f"Bearer {OPENROUTER_API_KEY}",
-        "HTTP-Referer": "https://resume-analyzer.streamlit.app",
+        "HTTP-Referer": "https://ai-resume-analyze-app.streamlit.app",
         "X-Title": "Resume Analyzer",
         "Content-Type": "application/json"
+        
     }
 
     data = {
